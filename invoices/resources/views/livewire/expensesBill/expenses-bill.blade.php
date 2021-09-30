@@ -5,12 +5,12 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">الفواتير</h2>
+                        <h2 class="content-header-title float-left mb-0">فواتير المصروفات</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active">الفواتير </li>
+                                <li class="breadcrumb-item active">فواتير المصروفات  </li>
                             </ol>
                         </div>
                     </div>
@@ -145,9 +145,9 @@
 
                                 <tr>
                                     <td>{{$bill->id}}</td>
-                                    <td>{{$bill->expensesCategories?->name}}</td>
+                                    <td>{{$bill->expensesCategories?$bill->expensesCategories->name:''}}</td>
                                     <td> {{ $bill->price }}</td>
-                                    <td>{{$bill->created_at}}</td>
+                                    <td>{{(new \DateTime($bill->created_at))->format('Y.m.d') }}</td>
 
                                     <td>
                                         <div class="inline-block whitespace-no-wrap">

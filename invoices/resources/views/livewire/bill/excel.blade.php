@@ -19,6 +19,9 @@
                                 <th rowspan="1" colspan="1">
                                     رقم الزبون
                                 </th>
+                                <th rowspan="1" colspan="1">
+                                    التاريخ
+                                </th>
 
 
                             </tr>
@@ -28,11 +31,11 @@
                             @foreach($bills as $bill)
                                 <tr>
                                     <td>{{$bill->id}}</td>
-                                    <td>{{$bill->customers?->name}}</td>
+                                    <td>{{$bill->customers?$bill->customers->name:''}}</td>
                                     <td>{{$bill->status == "recived"?'مستلمة':'غير مستلمة'}}</td>
                                     <td>{{$bill->result}}</td>
-                                    <td>{{$bill->customers?->mobile}}</td>
-
+                                    <td>{{$bill->customers?$bill->customers->mobile:''}}</td>
+                                    <td>{{(new \DateTime($bill->created_at))->format('Y.m.d') }}</td>
                                 </tr>
 
                             @endforeach

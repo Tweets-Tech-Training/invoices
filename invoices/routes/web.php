@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ShowController;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\User;
@@ -28,7 +29,8 @@ use App\Http\Livewire\ExpensesBillForm;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+   // dd('ddd');
+    return redirect()->route('login');
 });
 
 
@@ -42,7 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user', User::class)->name('user');
     Route::get('/user/{id}/edit', UserForm::class)->name('user.edit');
     Route::get('/user/create', UserForm::class)->name('user.create');
-
+    Route::get('/user/{id}/permission', [PermissionController::class, 'permission'])->name('user.permission');
+    Route::post('user/{id}/postPermission',[PermissionController::class,'postPermission'])->name('user.postPermission');
     Route::get('/city', City::class)->name('city');
     Route::get('/coin', Coin::class)->name('coin');
     Route::get('/category', Category::class)->name('category');
@@ -55,7 +58,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/bill/{id}/edit', BillForm::class)->name('bill.edit');
     Route::get('/bill/{id}/show', [ShowController::class, 'show'])->name('bill.show');
     //Route::get('/bill/show', [\App\Http\Controllers\ShowController::class] )->name('bill.show');
-
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
 
 });
 
@@ -68,3 +73,14 @@ Route::get('/main', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('/storage', function () {
+    \Artisan::call('storage:link');
+    return 'Application link';
+});
+Route::get('/clear_cache', function () {
+      \Artisan::call('cache:clear');
+      \Artisan::call('view:clear');
+      \Artisan::call('config:clear');
+    return 'Application cache cleared';
+});

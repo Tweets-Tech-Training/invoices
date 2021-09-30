@@ -57,6 +57,9 @@
                                 </th>
 
                                 <th rowspan="1" colspan="1">
+                                    التاريخ
+                                </th>
+                                <th rowspan="1" colspan="1">
                                     الخيارات
                                 </th>
 
@@ -68,7 +71,9 @@
                                                 <tr>
                                                 <td>{{$city->id}}</td>
                                                 <td>{{$city->name}}</td>
-                                                <td>
+                                                <td>{{(new \DateTime($city->created_at))->format('Y.m.d') }}</td>
+
+                                                    <td>
                                                     <div class="inline-block whitespace-no-wrap">
                                                         <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"  wire:click="edit({{ $city->id }})"><i class="feather icon-edit"></i></button>
                                                         <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" wire:click="delete({{ $city->id }})"><i class="feather icon-trash"></i></button>

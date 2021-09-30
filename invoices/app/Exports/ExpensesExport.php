@@ -18,21 +18,28 @@ class ExpensesExport implements FromView
     public  $search_array=null;
     public $total;
 
-    public function __construct( $search_array= null)
+    public function __construct( $search_array= null )
     {
         $this->search_array = $search_array;
     }
     public function view(): View
     {
-
+    //->sum('price')
         if($this->search_array){
             $bills=ExpenesesBill::search($this->search_array)->orderBy('id', 'asc')->get();
-
-            return view('livewire.expensesBill.excel')->with('bills',$bills);
+         $this->total=$bills->sum('price');
+            return view('livewire.expensesBill.excel')->with([
+                'bills'=>$bills ,
+                'total'=> $this->total,
+                ]);
         }
         else{
             $bills= ExpenesesBill::get();
-            return view('livewire.expensesBill.excel')->with('bills',$bills);
+            $this->total=$bills->sum('price');
+            return view('livewire.expensesBill.excel')->with([
+                'bills'=>$bills ,
+                'total'=> $this->total,
+            ]);
         }
 
     }

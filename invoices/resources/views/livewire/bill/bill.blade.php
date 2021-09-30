@@ -5,12 +5,12 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">الفواتير</h2>
+                        <h2 class="content-header-title float-left mb-0">فواتير المبيعات</h2>
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active">الفواتير </li>
+                                <li class="breadcrumb-item active"> فواتير المبيعات  </li>
                             </ol>
                         </div>
                     </div>
@@ -159,18 +159,22 @@
 
                                                 <tr>
                                                     <td>{{$bill->id}}</td>
-                                                    <td>{{$bill->customers?->name}}</td>
+                                                    <td>{{$bill->customers?$bill->customers->name:''}}</td>
                                                     <td>{{$bill->status == "recived"?'مسددة':'غير مسددة'}}</td>
-                                                    <td>{{$bill->created_at}}</td>
+                                                    <td>{{(new \DateTime($bill->created_at))->format('Y.m.d') }}</td>
                                                     <td>{{$bill->result}}</td>
-                                                    <td>{{$bill->customers?->mobile}}</td>
+                                                    <td>{{$bill->customers?$bill->customers->mobile:''}}</td>
                                                     <td>
                                                         <div class="inline-block whitespace-no-wrap">
+                                                            <?php
+                                                            $user= auth()->user()->links->toArray();
+
+                                                            ?>
                                                             <a   class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"   href="{{ route('bill.edit',$bill->id) }}" ><i class="feather icon-edit"></i></a>
-                                                            <a   class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"   href="{{ route('bill.show',$bill->id) }}" ><i class="feather  icon-eye"></i></a>
-
+                                                            <a   class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light"   href="{{ route('bill.show',$bill->id) }}" ><i class="feather  icon-eye"></i></a>
+                                                            @if(in_array('bill_delete',$user))
                                                             <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" wire:click="delete({{ $bill->id }})"  ><i class="feather icon-trash"></i></button>
-
+                                                            @endif
                                                         </div>
                                                     </td>
 

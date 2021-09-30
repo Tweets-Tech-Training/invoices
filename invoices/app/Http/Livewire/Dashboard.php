@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\ExpenesesBill;
 use Livewire\Component;
 use App\Models\Bill;
 use Carbon\Carbon;
@@ -13,6 +14,7 @@ class Dashboard extends Component
         $city=\App\Models\City::count();
         $category=\App\Models\Category::count();
         $bill=Bill::count();
+        $expensesBill=ExpenesesBill::count();
          $date = Carbon::now()->format('Y');
          $billMonth=Bill::whereMonth(
              'created_at',
@@ -35,6 +37,7 @@ class Dashboard extends Component
                 'billYear' =>$billYear,
                 'billDay' =>$billDay,
                 'billMonth' => $billMonth,
+                'expensesBill'=>$expensesBill,
             ])->extends('dashboard_layout.main');
     }
 }

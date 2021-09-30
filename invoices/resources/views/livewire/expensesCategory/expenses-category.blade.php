@@ -55,7 +55,9 @@
                                 <th rowspan="1" colspan="1">
                                     الصنف
                                 </th>
-
+                                <th rowspan="1" colspan="1">
+                                    التاريخ
+                                </th>
 
                                 <th rowspan="1" colspan="1">
                                     الخيارات
@@ -68,6 +70,7 @@
                                 <tr>
                                     <td>{{$category->id}}</td>
                                     <td>{{$category->name}}</td>
+                                    <td>{{(new \DateTime($category->created_at))->format('Y.m.d') }}</td>
 
                                     <td>
                                         <div class="inline-block whitespace-no-wrap">

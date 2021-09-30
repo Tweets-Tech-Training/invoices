@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <h2 class="text-bold-700">{{@$category}}</h2>
-                        <p class="mb-0 line-ellipsis">الاصناف</p>
+                        <p class="mb-0 line-ellipsis">اصناف المبيعات</p>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <h2 class="text-bold-700">{{@$bill}}</h2>
-                        <p class="mb-0 line-ellipsis"> الفواتير الاجمالية </p>
+                        <p class="mb-0 line-ellipsis"> فوتير المبيعات الاجمالية </p>
                     </div>
                 </div>
             </div>
@@ -69,11 +69,11 @@
                     <div class="card-body">
                         <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
                             <div class="avatar-content">
-                                <i class="feather icon-server text-danger font-medium-5"></i>
+                                <i class="feather icon-umbrella text-danger font-medium-5"></i>
                             </div>
                         </div>
                         <h2 class="text-bold-700">{{$billYear}}</h2>
-                        <p class="mb-0 line-ellipsis"> عدد الفواتير خلال السنة الحالية </p>
+                        <p class="mb-0 line-ellipsis"> فواتير المبيعات خلال السنة الحالية </p>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <h2 class="text-bold-700">{{$billMonth}}</h2>
-                        <p class="mb-0 line-ellipsis"> عدد الفواتير خلال الشهر الحالي </p>
+                        <p class="mb-0 line-ellipsis"> فواتير المبيعات خلال الشهر الحالي </p>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,22 @@
                             </div>
                         </div>
                         <h2 class="text-bold-700">{{$billDay}}</h2>
-                        <p class="mb-0 line-ellipsis"> عدد الفواتير الصادرة اليوم   </p>
+                        <p class="mb-0 line-ellipsis"> عدد فواتير المبيعات الصادرة اليوم   </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-3 col-sm-6">
+            <div class="card text-center">
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="avatar bg-rgba-danger p-50 m-0 mb-1">
+                            <div class="avatar-content">
+                                <i class="feather icon-credit-card text-danger font-medium-5"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-bold-700">{{$expensesBill}}</h2>
+                        <p class="mb-0 line-ellipsis"> فواتير المصروفات </p>
                     </div>
                 </div>
             </div>

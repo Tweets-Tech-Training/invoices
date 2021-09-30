@@ -26,9 +26,9 @@
 
                                 <tr>
                                     <td>{{$bill->id}}</td>
-                                    <td>{{$bill->expensesCategories?->name}}</td>
+                                    <td>{{$bill->expensesCategories?$bill->expensesCategories->name:''}}</td>
                                     <td> {{ $bill->price }}</td>
-                                    <td>{{$bill->created_at}}</td>
+                                    <td>{{(new \DateTime($bill->created_at))->format('Y.m.d') }}</td>
 
 
                                 </tr>
@@ -41,6 +41,14 @@
 
 
                             @endforelse
+                            <tr>
+                                <td></td>
+                                <td> <strong> اجمالي المطلوب  </strong> </td>
+                                <td style="font-size:large"> <strong> {{ $total }} </strong> </td>
+                                <td></td>
+
+
+                            </tr>
                             </tbody>
                         </table>
 

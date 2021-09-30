@@ -118,6 +118,11 @@ return [
     */
 
     'attributes'           => [
+        'priceArray.*.category_id' => 'الصنف ' ,
+        'priceArray.*.amount' => 'الكمية  ' ,
+        'priceArray.*.categoryprice' => 'السعر للوحدة ' ,
+        'expenses_category_id' => 'صنف المصروفات  ',
+        'price'=> 'السعر ',
         'ok'        => 'موافق ' ,
         'category_id'          =>'الصنف' ,
         'code'          =>'الرمز' ,

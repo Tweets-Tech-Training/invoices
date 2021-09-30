@@ -22,10 +22,7 @@
         <li class=" nav-item"><a href="{{route('coin')}}"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Dashboard">العملات</span></a>
 
         </li>
-        <li class=" nav-item"><a href="{{route('billExpenses')}}"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Dashboard">فواتير المصروفات </span></a>
 
-        </li>
-        <li class=" nav-item"><a href="{{route('expensesCategory')}}"><i class="feather icon-cast"></i><span class="menu-title" data-i18n="Dashboard">اصناف المصروفات</span></a>
 
         </li>
         <li class=" nav-item"><a href="{{route('user')}}"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Dashboard"> المستخدمين </span></a>
@@ -33,10 +30,14 @@
         </li>
 
         <li class=" nav-item"><a href="{{route('customer')}}"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Dashboard">الزبائن</span></a>
+        <li class=" nav-item"><a href="{{route('expensesCategory')}}"><i class="feather icon-cast"></i><span class="menu-title" data-i18n="Dashboard">اصناف المصروفات</span></a>
+         <li class=" nav-item"><a href="{{route('billExpenses')}}"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Dashboard">فواتير المصروفات </span></a>
 
-        <li class=" nav-item"><a href="{{route('category')}}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard"> الاصناف</span></a>
+        </li>
 
-   <li class=" nav-item"><a href="{{route('bill')}}"> <i class="feather icon-server"></i> <span class="menu-title " data-i18n="Dashboard">الفواتير </span></a>
+        <li class=" nav-item"><a href="{{route('category')}}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Dashboard"> اصناف المبيعات</span></a>
+
+   <li class=" nav-item"><a href="{{route('bill')}}"> <i class="feather icon-server"></i> <span class="menu-title " data-i18n="Dashboard">فواتير المبيعات  </span></a>
 
 
 

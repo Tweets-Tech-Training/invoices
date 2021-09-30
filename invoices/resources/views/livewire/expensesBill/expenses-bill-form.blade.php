@@ -22,7 +22,8 @@
                                 <div class="row">
 
                                     <div class="col-12 col-sm-8">
-{{--                                        <div class="row" style="margin-bottom: 15px;">--}}
+
+
 {{--                                            <div class="col-md-12" style="background-color: #fff; padding:15px; border-radius:7px">--}}
 {{--                                                <h5>Tags</h5>--}}
 {{--                                                <hr>--}}
@@ -40,21 +41,22 @@
                                         <div class="form-group row " >
 
                                                 <div class="col-md-2">الاصناف</div>
-                                            <div class="form-group col-md-8" wire:ignore>
-                                                @if(isset($categories))
-                                                    <select  class="ddlStatus  form-control"  wire:model="bill.expenses_category_id" name="category_id" id="category_id">
-                                                        <option value="">اختر الصنف  </option>
-                                                        @foreach($categories as $category)
-                                                            <option  value="{{ $category->id }}">{{$category->name}}</option>
-                                                        @endforeach
+                                            <div class="form-group col-md-8">
+                                                <div  wire:ignore>  @if(isset($categories))
+                                                        <select  class="ddlStatus  form-control"  wire:model="bill.expenses_category_id" name="category_id" id="category_id">
+                                                            <option value="">اختر الصنف  </option>
+                                                            @foreach($categories as $category)
+                                                                <option  value="{{ $category->id }}">{{$category->name}}</option>
+                                                            @endforeach
 
-                                                    </select>
+                                                        </select>
 
-                                                @endif
+                                                    @endif</div>
 
                                                 @error('bill.expenses_category_id') <span class="text-danger">{{ $message }}</span>@enderror
 
                                             </div>
+
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-2">
@@ -101,14 +103,16 @@
 
         $(document).ready(function() {
             $('#category_id').select2();
+            tags: true,
             $('#category_id').on('change', function (e) {
                 var data = $('#category_id').select2("val");
-            @this.set('bill.expenses_category_id', e.target.value);
+                   @this.set('bill.expenses_category_id', e.target.value);
             });
         });
+
         // $(function () {
-        //     $(".select-tags").select2({
-        //         placeholder: "Enter tags",
+        //     $("#category_id").select2({
+        //         placeholder: " اخترالصنف",
         //         tags: true,
         //         tokenSeparators: [',']
         //     });

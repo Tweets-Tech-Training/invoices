@@ -83,7 +83,7 @@
                                 </div>
 
                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1" >
-                                    <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ
+                                    <button type="submit" class="btn btn-success glow mb-1 mb-sm-0 mr-0 mr-sm-1">حفظ
                                     </button>
                                     <button  onclick="location.href = '/dashboard';" class="btn btn-outline-danger">الغاء</button>
                                 </div>

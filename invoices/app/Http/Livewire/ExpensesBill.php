@@ -24,8 +24,12 @@ class ExpensesBill extends Component
 //            $query->orWhereBetween('created_at', array($data['from'], $data['to']));
 //        }
         //dd(ExpenesesBillModel::whereBetween('created_at', array($this->from,$this->to)));
-        $bills=ExpenesesBillModel::search($this->search_array)->orderBy('id', 'asc') ->paginate(10);
+       // $bills=ExpenesesBillModel::sum('price');
 
+
+
+        $bills=ExpenesesBillModel::search($this->search_array)->orderBy('id', 'asc') ->paginate(10);
+        //dd($this->total=$bills->sum('price'));
         return view('livewire.expensesBill.expenses-bill', [
             'bills' => $bills])->extends('dashboard_layout.main');
     }

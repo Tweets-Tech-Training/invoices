@@ -13,6 +13,10 @@
             /*font-family: 'Glyphicons Halflings';*/
             font-weight: normal;
         }
+        .buttonArray{
+            margin-top: 21px;
+            height: 37px;
+        }
     </style>
 
 <div class="container">
@@ -93,8 +97,6 @@
                                         @endif</div>
 
                                     @error('bill.coin_id') <span class="text-danger">{{ $message }}</span>@enderror
-
-
 
                                 </div>
 
@@ -209,16 +211,19 @@
                                         <hr>
                                     <div class="form-group col-md-4">
                                         <label for="category">الاصناف</label>
-                                        @if(isset($categories))
-                                            <select  class="ddlStatus  form-control"  wire:model="priceArray.{{$index}}.category_id" name="category_id" id="category_id">
-                                                <option value="">اختر الصنف  </option>
-                                                @foreach($categories as $category)
-                                                    <option  value="{{ $category->id }}">{{$category->name}}</option>
-                                                @endforeach
+                                        <div wire:ignore>
+                                            @if(isset($categories))
+                                                <select  class="ddlStatus  form-control"  wire:model="priceArray.{{$index}}.category_id" name="category_id" id="category_id">
+                                                    <option value="">اختر الصنف  </option>
+                                                    @foreach($categories as $category)
+                                                        <option  value="{{ $category->id }}">{{$category->name}}</option>
+                                                    @endforeach
 
-                                            </select>
+                                                </select>
 
-                                        @endif
+                                            @endif
+                                        </div>
+
 
                                         @error("priceArray.$index.category_id") <span class="text-danger">{{ $message }}</span>@enderror
 
@@ -226,32 +231,42 @@
                                     </div>
 
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-2">
                                         <label> الكمية  </label>
                                         <input type="text"   wire:model="priceArray.{{$index}}.amount"  name="amount" class="form-control" >
                                         @error("priceArray.$index.amount") <span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-2">
                                         <label> السعر للوحدة   </label>
                                         <input type="text"   wire:model="priceArray.{{$index}}.categoryprice" name="categoryprice"  class="form-control" >
                                         @error("priceArray.$index.categoryprice") <span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-2">
                                         <label>اجمالي السعر    </label>
                                         <input type="text" disabled   value="{{$priceArray[$index]['unitprice']}}" name="unitprice" class="form-control" >
                                     </div>
+                                    @if($index==0)
+                                    <div class="form-group col-md-2 buttonArray">
+                                        <button  wire:click="addRow" class="btn btn-icon btn-icon  btn-primary mr-1 mb-1 waves-effect waves-light"><i class="feather icon-plus-circle"></i>
+{{--                                        <button   wire:click="addRow" class="btn btn-outline-primary mr-1  mb-1 waves-effect waves-light"><i class="feather icon-plus-circle"></i>--}}
 
-                                    <div class="form-group col-md-4">
-                                        <br>
+                                        </button>
 
-                                      @if($index==0)
-                                        <button        wire:click="addRow"
-                                                       class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"><i class="feather icon-plus-circle"></i>
-                                            اضافة صنف  جديد                                 </button>
-                                          @endif
                                     </div>
+                                    @endif
+                                    @if($index > 0)
+                                    <div class="form-group col-md-2 buttonArray">
+                                      <div wire:ignore.self >
+                                          <button  wire:click="deleteRaw" class="btn btn-icon btn-icon  btn-danger mr-1 mb-1 waves-effect waves-light">  <i class="feather icon-trash"></i>
+{{--                                          <button  wire:click="deleteRaw" class="btn btn-outline-danger mr-1  mt-1 mb-1 waves-effect waves-light">--}}
+
+
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
 
                                 @endforeach
@@ -353,6 +368,13 @@
 
 
 
+        $(document).ready(function() {
+            $('#category_id').select2();
+            $('#category_id').on('change', function (e) {
+                var data = $('#category_id').select2("val");
+                  @this.set('priceArray.{{$index}}.category_id', e.target.value);
+            });
+        });
         $(document).ready(function() {
             $('#customer_id').select2();
             $('#customer_id').on('change', function (e) {

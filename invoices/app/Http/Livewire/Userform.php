@@ -16,12 +16,24 @@ class Userform extends Component
     {
         $this->user = $id?UserModel::find($id):new UserModel();
     }
-    public $rules=[
+    /*public $rules=[
         'user.name' => 'required',
-        'user.email' => 'required|email',
+        //'user.email' => 'required|email',
+         // 'user.email' => 'required|email|unique:users,email,'.$id,
         'password' => 'required',
         'user.image' => 'required',
-    ];
+    ];*/
+    protected function rules()
+    {
+        return [
+            'user.name' => 'required|string',
+            //'username' => 'required|min:6|max:255|alpha_dash|unique:users,username,' . $this->userID,
+          'user.email' =>  $this->user->id?'required|string|email|max:255|unique:users,email, '. $this->user->id:"required|string|email|max:255|unique:users,email",
+//            'user.email' => ['required', 'email', 'not_in:' . $this->user->id],
+            'password' => 'required',
+            'user.image' => 'required',
+        ];
+    }
 
     public function render()
     {
@@ -41,12 +53,7 @@ class Userform extends Component
             $this->user->image=$imagename;
         }
         ;
-        $this->validate([
-            'user.name' => 'required',
-            'user.email' => 'required|email',
-            'password' => 'required',
-            'user.image' => 'required',
-            ]);
+        $this->validate();
 
         if($this->password){
             $this->user->password=Hash::make($this->password);

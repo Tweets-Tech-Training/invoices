@@ -10,7 +10,7 @@ class CustomerFormLivewire extends Component
  public $customer;
 
 
-    public $customers, $customer_id,$name, $city_id , $address , $mobile , $email , $gender;
+    public $customers, $customer_id,$name, $city_id , $address , $mobile , $email ;
 
     public function mount($id=null)
     {
@@ -22,7 +22,6 @@ class CustomerFormLivewire extends Component
         'customer.email' => 'required|email',
         'customer.mobile' => 'required| numeric |digits:10',
         'customer.city_id' => 'required',
-        'customer.gender' => 'required',
         'customer.address' => 'required|max:300',
     ];
     public function render()
@@ -41,7 +40,6 @@ class CustomerFormLivewire extends Component
                 'customer.email' => 'required|email',
                 'customer.mobile' => 'required| numeric |digits:10',
                 'customer.city_id' => 'required',
-                'customer.gender' => 'required',
                 'customer.address' => 'required|max:300',
             ]);
             $this->customer->save();
@@ -49,8 +47,9 @@ class CustomerFormLivewire extends Component
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' =>'تم حفظ البيانات  بنجاح',
+            'url'=>route('customer'),
         ]);
-       return redirect(route('customer'));
+
 
         }
 
@@ -67,7 +66,6 @@ class CustomerFormLivewire extends Component
                 'email' => 'required|email',
                 'mobile' => 'required| numeric |digits:10',
                 'city_id' => 'required',
-                'gender' => 'required',
                 'address' => 'required|max:300',
                      ]);
             $this->customer->update();

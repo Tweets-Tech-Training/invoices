@@ -38,7 +38,7 @@ class BillForm extends Component
         'bill.coin_id' => 'required',
         'bill.status' => 'required',
         'bill.related' => 'required',
-        'bill.payment' => 'required',
+        'bill.payment' => 'nullable',
         'bill.image' => 'required',
         'bill.date' => 'nullable',
         'tax' => 'required',
@@ -82,7 +82,7 @@ class BillForm extends Component
             'bill.coin_id' => 'required',
             'bill.status' => 'required',
             'bill.related' => 'required',
-            'bill.payment' => 'required',
+            'bill.payment' => 'nullable',
             'bill.image' => 'required|max:1024',
             'bill.date' => 'nullable',
             'tax' => 'required',
@@ -124,7 +124,10 @@ class BillForm extends Component
         $this->priceArray[]= ['category_id'=>null,'amount'=>null,'categoryprice'=>null,'unitprice'=>null];
     }
 
-
+    public function deleteRaw ()
+    {
+        array_pop($this->priceArray);
+    }
 
 
 

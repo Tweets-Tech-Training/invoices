@@ -74,6 +74,7 @@
                                     <td>
                                         <div class="inline-block whitespace-no-wrap">
                                             <a   class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light" href="{{ route('user.edit',$user->id) }}" ><i class="feather icon-edit"></i></a>
+                                            <a   class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light" title="permission" href="{{ route('user.permission',$user->id) }}" ><i class="feather icon-lock"></i></a>
                                             <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light"  wire:click="delete({{ $user->id }})" ><i class="feather icon-trash"></i></button>
                                         </div>
                                     </td>

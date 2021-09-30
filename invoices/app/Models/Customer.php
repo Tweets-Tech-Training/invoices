@@ -15,7 +15,6 @@ class Customer extends Model
         'email',
         'mobile',
         'city_id',
-        'gender',
         'address',
     ];
 
