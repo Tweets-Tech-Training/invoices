@@ -15,14 +15,26 @@ class Bill extends Component
 {
     use WithPagination;
     public $search;
-    public $status , $name, $from , $to  ,$search_array=[];
+    public $status , $name, $from,$totalResult , $to  ,$search_array=[];
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $bills=BillModel::search($this->search_array)->orderBy('id', 'asc') ->paginate(10);
+        if(auth()->user()->links->toArray()){
+//            $bills=BillModel::search($this->search_array)->orderBy('id', 'desc') ->paginate(10);
+//            $this->totalResult= \App\Models\Bill::whereMonth(
+//                'created_at',
+//                Carbon::now()
+//            )->sum('result');
+            $bills= \App\Models\Bill::search($this->search_array)->orderBy('id', 'asc')->paginate(10);
+            $this->totalResult=$bills->sum('result');
+           $coins= \App\Models\Coin::all();
+            return view('livewire.bill.bill', [
+                'bills' => $bills ,'totalResult' => $this->totalResult, 'coins' => $coins])->extends('dashboard_layout.main');
+        } else {
+            return view('home')->with(['message' => 'انت لا تملك صلاحية '])->extends('dashboard_layout.main');
 
-        return view('livewire.bill.bill', [
-            'bills' => $bills])->extends('dashboard_layout.main');
+        }
+
     }
     public function delete($id)
     {

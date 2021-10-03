@@ -59,7 +59,7 @@
                                     العنوان
                                 </th>
                                 <th rowspan="1" colspan="1">
-                                    الايميل
+                                    اسم مفوض الشركة
                                 </th>
                                 <th rowspan="1" colspan="1">
                                     الخيارات
@@ -73,7 +73,7 @@
                                                     <td>{{$customer->id}}</td>
                                                     <td>{{$customer->name}}</td>
                                                     <td>{{$customer->address}}</td>
-                                                    <td>{{$customer->email}}</td>
+                                                    <td>{{$customer->commissioner}}</td>
                                                     <td>
                                                         <div class="inline-block whitespace-no-wrap">
                                                             <a   class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light" href="{{ route('customer.edit',$customer->id) }}" ><i class="feather icon-edit"></i></a>

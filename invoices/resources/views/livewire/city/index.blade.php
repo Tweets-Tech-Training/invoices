@@ -71,7 +71,7 @@
                                                 <tr>
                                                 <td>{{$city->id}}</td>
                                                 <td>{{$city->name}}</td>
-                                                <td>{{(new \DateTime($city->created_at))->format('Y.m.d') }}</td>
+                                                <td>{{(new \DateTime($city->created_at))->format('Y/m/d') }}</td>
 
                                                     <td>
                                                     <div class="inline-block whitespace-no-wrap">

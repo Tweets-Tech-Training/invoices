@@ -38,9 +38,33 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <div class="form-group">
-                                                                <label for="اسم الدورة"> اسم الزبون </label>
-                                                                <input type="text" wire:model.defer="search_array.name" id="name" class="form-control" placeholder="اسم الزبون " name="اسم الزبون">
+                                                                <label for="اسم الدورة"> اسم الشركة </label>
+                                                                <input type="text" wire:model.defer="search_array.name" id="name" class="form-control" placeholder="اسم الشركة " name="اسم الشركة">
                                                             </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="اسم الدورة"> اسم مفوض الشركة </label>
+                                                                <input type="text" wire:model.defer="search_array.commissioner" id="commissioner" class="form-control" placeholder="اسم مفوض الشركة " name="اسم امفوض الشركة">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label for="اسم الدورة">   رقم الجوال  </label>
+                                                                <input type="text" wire:model.defer="search_array.mobile" id="mobile" class="form-control" placeholder="رقم الزبون " name="رقم الزبون">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-3">
+                                                            <label for="اسم الدورة">   العملة </label>
+                                                            <input type="text" wire:model.defer="search_array.coinName" id="coinName" class="form-control" placeholder="ادخل العملة " name="ادخل العملة">
+
+                                                            {{--                                                            <select class="form-control"  wire:model.defer="search_array.coinName"  name='coinName' id="coinName">--}}
+{{--                                                                <option value=''>اختر العملة </option>--}}
+{{--                                                                @foreach($coins as $coin)--}}
+{{--                                                                    <option value='{{$coin->id}}' > {{$coin->name}}</option>--}}
+{{--                                                                @endforeach--}}
+{{--                                                            </select>--}}
                                                         </div>
                                                         <div class='col-md-3'>
                                                             <label for="اسم الدورة">  حالة الفاتورة </label>
@@ -64,6 +88,7 @@
                                                             </div>
                                                         </div>
 
+
                                                         <div class="col-12 mt-4 text-right">
                                                             <button wire:loading.attr="disabled" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light search_btn" wire:click="search">
                                                                 بحث
@@ -81,6 +106,13 @@
                                                     </div>
                                                 </div>
 {{--                                            </form>--}}
+                                            <div class="col-md-3">
+                                                <div class="form-group" >
+                                                    <label for="name">اجمالي المبلغ المطلوب  :</label>
+                                                    <input type="text" value="{{$totalResult}}" class="form-control" name="totalPrice" id="totalPrice " disabled>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -97,8 +129,14 @@
                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-between mt-1">
 
                                 <div class="dt-buttons btn-group">
+                                    <?php
+                                    $userHas= auth()->user()->links->pluck('action_name')->toArray();
+                                    ?>
+                                    @if(in_array('bill_create',$userHas))
+
                                     <a  href="{{route('bill.create')}}"  class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"><i class="feather icon-plus-circle"></i>
                                         اضافة فاتورة جديدة                                 </a>
+                                        @endif
                                     <button wire:click="export"    class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light"><i class="feather icon-plus-circle"></i>
                                        تصدير الى excel         </button>
                                 </div>
@@ -145,6 +183,9 @@
                                     المبلغ المطلوب
                                 </th>
                                 <th rowspan="1" colspan="1">
+                                     العملة
+                                </th>
+                                <th rowspan="1" colspan="1">
                                     رقم الزبون
                                 </th>
 
@@ -159,22 +200,26 @@
 
                                                 <tr>
                                                     <td>{{$bill->id}}</td>
+
                                                     <td>{{$bill->customers?$bill->customers->name:''}}</td>
                                                     <td>{{$bill->status == "recived"?'مسددة':'غير مسددة'}}</td>
-                                                    <td>{{(new \DateTime($bill->created_at))->format('Y.m.d') }}</td>
+                                                    <td>{{(new \DateTime($bill->created_at))->format('Y/m/d') }}</td>
                                                     <td>{{$bill->result}}</td>
+                                                    <td>{{$bill->coins?$bill->coins->name:''}}</td>
                                                     <td>{{$bill->customers?$bill->customers->mobile:''}}</td>
                                                     <td>
                                                         <div class="inline-block whitespace-no-wrap">
                                                             <?php
-                                                            $user= auth()->user()->links->toArray();
-
+                                                            $user= auth()->user()->links->pluck('action_name')->toArray();
                                                             ?>
-                                                            <a   class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"   href="{{ route('bill.edit',$bill->id) }}" ><i class="feather icon-edit"></i></a>
-                                                            <a   class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light"   href="{{ route('bill.show',$bill->id) }}" ><i class="feather  icon-eye"></i></a>
-                                                            @if(in_array('bill_delete',$user))
-                                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" wire:click="delete({{ $bill->id }})"  ><i class="feather icon-trash"></i></button>
-                                                            @endif
+                                                                @if(in_array('bill_edit',$user))
+
+                                                                 <a  class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"   href="{{ route('bill.edit',$bill->id) }}" ><i class="feather icon-edit"></i></a>
+                                                                   @endif
+                                                                    <a   class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light"   href="{{ route('bill.show',$bill->id) }}" ><i class="feather  icon-eye"></i></a>
+                                                                 @if(in_array('bill_delete',$user))
+                                                                <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" wire:click="delete({{ $bill->id }})"  ><i class="feather icon-trash"></i></button>
+                                                               @endif
                                                         </div>
                                                     </td>
 

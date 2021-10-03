@@ -17,7 +17,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>'المستخدمين',
             'route'=>'',
-            'action_name'=>'user_index',
+            'action_name'=>'user_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -55,7 +55,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>'فواتير المبيعات',
             'route'=>'',
-            'action_name'=>'bill_index',
+            'action_name'=>'bill_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -92,7 +92,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>'فواتير المصروفات',
             'route'=>'',
-            'action_name'=>'billExpenses_index',
+            'action_name'=>'billExpenses_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -130,7 +130,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>' الزبائن',
             'route'=>'',
-            'action_name'=>'customer_index',
+            'action_name'=>'customer_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -167,7 +167,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>' المحافظات',
             'route'=>'',
-            'action_name'=>'city_index',
+            'action_name'=>'city_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -205,7 +205,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>' العملات',
             'route'=>'',
-            'action_name'=>'coin_index',
+            'action_name'=>'coin_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -242,7 +242,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>' اصناف المبيعات',
             'route'=>'',
-            'action_name'=>'category_index',
+            'action_name'=>'category_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -280,7 +280,7 @@ class LinksSeeder extends Seeder
         $link = Link::create([
             'title'=>' اصناف المصروفات',
             'route'=>'',
-            'action_name'=>'category_index',
+            'action_name'=>'category_show',
             'parent_id'=>0,
             'show_in_menu'=>1,
         ]);
@@ -310,6 +310,29 @@ class LinksSeeder extends Seeder
             'title'=>'حذف المصروفات',
             'route'=>'expensesCategory.delete',
             'action_name'=>'expensesCategory_delete',
+            'parent_id'=>$link->id,
+            'show_in_menu'=>0,
+        ]);
+
+        //for permission
+        $link = Link::create([
+            'title'=>'الصلاحيات',
+            'route'=>'',
+            'action_name'=>'permission_show',
+            'parent_id'=>0,
+            'show_in_menu'=>1,
+        ]);
+        Link::create([
+            'title'=>'عرض',
+            'route'=>'user.permission',
+            'action_name'=>'user_permission',
+            'parent_id'=>$link->id,
+            'show_in_menu'=>0,
+        ]);
+        Link::create([
+            'title'=>'اضافة',
+            'route'=>'user.postPermission',
+            'action_name'=>'user_postPermission',
             'parent_id'=>$link->id,
             'show_in_menu'=>0,
         ]);

@@ -10,12 +10,11 @@
 
                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-between mt-1">
                     <p>   <span class="font-weight-bold ">رقم الفاتورة: الفاتورة    {{ $bill->id }}</span> <br>
-                    <span class="font-weight-bold">اسم الزبون</span> <span>{{$bill->customers?->name}}</span> <br>
-                <span class="font-weight-bold ">   رقم الزبون  :</span> {{$bill->customers?->mobile}} </p>
-
+                    <span class="font-weight-bold">اسم الشركة</span> <span>{{$bill->customers?$bill->customers->name:''}}</span> <br>
+                <span class="font-weight-bold ">   رقم الزبون  :</span> {{$bill->customers?$bill->customers->mobile:''}} </p>
                     <p>
                         <span class="font-weight-bold ">تاريخ الفاتورة:</span>
-                        <span class="font-small-2">{{$bill->created_at}}</span><br>
+                        <span class="font-small-2"> {{(new \DateTime($bill->created_at))->format('Y/m/d') }}</span><br>
                  <span class="font-weight-bold ">  حالة الفاتورة  :</span>{{$bill->status == "recived"?'مسددة':'غير مسددة'}} <br>
                     <span class="font-weight-bold">  المبلغ المطلوب:</span> <span style="color: #0C9A9A">   {{ $bill->result }}</span> </p>
 
@@ -55,7 +54,7 @@
                 <tbody>
                 @foreach($bill->orders  as $order)
                     <tr>
-                        <td>{{$order->categories?->name}}</td>
+                        <td>{{$order->categories?$order->categories->name:''}}</td>
                         <td>{{$order->amount }}</td>
                         <td>{{$order->categoryprice}}</td>
                         <td>{{$order->unitprice}}</td>

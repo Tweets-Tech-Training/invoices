@@ -32,8 +32,8 @@ class Bill extends Model
     }
 
 
-    public function coin(){
-        return $this->belongsTo(Coin::class);
+    public function coins(){
+        return $this->belongsTo(Coin::class,'coin_id');
     }
     public function customers(){
         return $this->belongsTo(Customer::class,'customer_id');
@@ -47,6 +47,7 @@ class Bill extends Model
 
     public function scopeSearch($query,$data)
     {
+//        commissioner
         if(isset($data['status'])){
             $query->where('status',$data['status']);
         }
@@ -57,6 +58,23 @@ class Bill extends Model
            //$search =$data['name'];
             $query->whereHas('customers',function ($q) use ($data) {
                 $q->where('name',"LIKE","%".$data['name']."%");
+            });
+        }
+        if(isset($data['commissioner'])){
+
+            $query->whereHas('customers',function ($q) use ($data) {
+                $q->where('commissioner',"LIKE","%".$data['commissioner']."%");
+            });
+        }
+        if(isset($data['mobile'])){
+            $query->whereHas('customers',function ($q) use ($data) {
+                $q->where('mobile',"LIKE","%".$data['mobile']."%");
+            });
+        }
+
+        if(isset($data['coinName'])){
+            $query->whereHas('coins',function ($q) use ($data) {
+                $q->where('name',"LIKE","%".$data['coinName']."%");
             });
         }
 

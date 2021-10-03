@@ -13,8 +13,11 @@ class ExpensesCategory extends Model
         'name',
     ];
 
-    public function  expenesesBill()
-    {
-        return $this->belongsToMany( ExpenesesBill::class);
+//    public function  expenesesBill()
+//    {
+//        return $this->belongsTo( ExpenesesBill::class);
+//    }
+    public function expenesesBill(){
+        return $this->belongsToMany(ExpenesesBill::class);
     }
 }

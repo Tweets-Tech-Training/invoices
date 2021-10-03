@@ -175,12 +175,24 @@
                                     </div>
 
                                 </div>
+
+
                             </div>
 
                                 <div class="row">
+                                    @if($bill->related =="1")
+                                        <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label class="form-label">رقم القيد المالي
+                                                </label>
+                                                <input type="text"   wire:model="bill.number"  name="number" class="form-control" >
+                                                @error('bill.number') <span class="text-danger">{{ $message }}</span>@enderror
+
+                                            </div>
+
+                                        </div>
+                                    @endif
                                     <div class="col-md-4">
-
-
                                         @if($bill->payment =="check" || $bill->payment =="money_transfer")
 
                                                 <div class="form-group" >
@@ -376,12 +388,20 @@
             });
         });
         $(document).ready(function() {
-            $('#customer_id').select2();
+            $("#customer_id").select2({
+                placeholder: " اختر اسم الشركة ",
+                tags: true,
+                tokenSeparators: [',']
+            });
             $('#customer_id').on('change', function (e) {
                 var data = $('#customer_id').select2("val");
+                console.log(data);
                    @this.set('bill.customer_id', e.target.value);
+
             });
         });
+
+
         $(document).ready(function() {
             $('#coin_id').select2();
             $('#coin_id').on('change', function (e) {

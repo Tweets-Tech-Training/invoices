@@ -147,7 +147,7 @@
                                     <td>{{$bill->id}}</td>
                                     <td>{{$bill->expensesCategories?$bill->expensesCategories->name:''}}</td>
                                     <td> {{ $bill->price }}</td>
-                                    <td>{{(new \DateTime($bill->created_at))->format('Y.m.d') }}</td>
+                                    <td>{{(new \DateTime($bill->created_at))->format('Y/m/d') }}</td>
 
                                     <td>
                                         <div class="inline-block whitespace-no-wrap">

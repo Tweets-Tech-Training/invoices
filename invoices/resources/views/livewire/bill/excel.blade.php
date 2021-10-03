@@ -35,10 +35,19 @@
                                     <td>{{$bill->status == "recived"?'مستلمة':'غير مستلمة'}}</td>
                                     <td>{{$bill->result}}</td>
                                     <td>{{$bill->customers?$bill->customers->mobile:''}}</td>
-                                    <td>{{(new \DateTime($bill->created_at))->format('Y.m.d') }}</td>
+                                    <td>{{(new \DateTime($bill->created_at))->format('Y/m/d') }}</td>
                                 </tr>
 
                             @endforeach
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td> <strong> اجمالي المطلوب  </strong> </td>
+                                <td style="font-size:large"> <strong> {{ $total }} </strong> </td>
+                                <td></td>
+
+
+                            </tr>
                             </tbody>
                         </table>
 

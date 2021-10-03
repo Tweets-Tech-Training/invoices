@@ -20,6 +20,9 @@ class ExpenesesBill extends Model
 
         return $this->belongsTo(ExpensesCategory::class,'expenses_category_id');
     }
+//    public function expensesCategories(){
+//        return $this->belongsToMany(ExpensesCategory::class,'expenses_categories','expenses_category_id' ,'id');
+//    }
 
     public function scopeSearch($query, $data)
     {

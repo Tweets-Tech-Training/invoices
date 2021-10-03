@@ -34,18 +34,18 @@
 
                             </div>
                             <div class="form-group col-md-5 required">
-                                <label for="inputEmail4" class="form-label">   الايميل </label>
-                                <input type="email"   wire:model="customer.email"  class="form-control" >
-                                @error('customer.email') <span class="text-danger">{{ $message }}</span>@enderror
+                                <label for="inputEmail4" class="form-label">   اسم مفوض الشركة  </label>
+                                <input type="text"   wire:model="customer.commissioner"  class="form-control" >
+                                @error('customer.commissioner') <span class="text-danger">{{ $message }}</span>@enderror
                             </div>
                             </div>
 
                         <div class="row">
                             <div class="form-group col-md-5 required">
-                                <label for="category" class="form-label">المدينة</label>
+                                <label for="category" class="form-label">المحافظة</label>
                                 @if(isset($cities))
                                     <select  class="ddlStatus  form-control"  wire:model="customer.city_id" name="city_id" id="city_id">
-                                        <option value="">اختر مدينة </option>
+                                        <option value="">اختر المحافظة </option>
                                         @foreach($cities as $city)
                                             <option  value="{{ $city->id }}">{{$city->name}}</option>
                                         @endforeach

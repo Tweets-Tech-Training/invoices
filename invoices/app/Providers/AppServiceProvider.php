@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Paginator::useBootstrap();
-        $links = Link::all();
-        View::share(['links'=>$links]);
+        $linkse = Link::all();
+        View::share(['linkse'=>$linkse]);
 
     }
 }

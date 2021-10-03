@@ -26,14 +26,20 @@ class City extends Component
 //    }
     public function render()
     {
-        if($this->search){
+        if(auth()->user()->links->toArray()) {
+            if($this->search){
 
-            $citiess=CityModel::orderBy('updated_at', 'desc')->where('name', 'like', '%' . $this->search . '%')->paginate(5);
-            return view('livewire.city.index',['citiess'=>$citiess,'id'=>''])->extends('dashboard_layout.main');
-        }
-        return view('livewire.city.index', [
-        'citiess' => CityModel::orderBy('id', 'desc')->paginate(3)
-        ])->extends('dashboard_layout.main');
+                $citiess=CityModel::orderBy('updated_at', 'desc')->where('name', 'like', '%' . $this->search . '%')->paginate(5);
+                return view('livewire.city.index',['citiess'=>$citiess,'id'=>''])->extends('dashboard_layout.main');
+            }
+            return view('livewire.city.index', [
+            'citiess' => CityModel::orderBy('id', 'desc')->paginate(10)
+            ])->extends('dashboard_layout.main');
+
+        } else {
+            return view('home')->with(['message' => 'انت لا تملك صلاحية '])->extends('dashboard_layout.main');
+
+         }
     }
 
     public function create()

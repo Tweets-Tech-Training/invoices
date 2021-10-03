@@ -21,16 +21,23 @@ class Category extends Component
     ];
     public function render()
     {
-        if($this->search){
+
+        if(auth()->user()->links->toArray()) {
+            if ($this->search) {
 
 
-            $categoriess=CategoryModel::orderBy('updated_at', 'desc')->where('name', 'like', '%' . $this->search . '%')->paginate(5);
-            return view('livewire.category.category',['categoriess'=>$categoriess,'id'=>''])->extends('dashboard_layout.main');
+                $categoriess = CategoryModel::orderBy('updated_at', 'desc')->where('name', 'like', '%' . $this->search . '%')->paginate(5);
+                return view('livewire.category.category', ['categoriess' => $categoriess, 'id' => ''])->extends('dashboard_layout.main');
+            }
+
+            return view('livewire.category.category', [
+                'categoriess' => CategoryModel::orderBy('id', 'desc')->paginate(10)
+            ])->extends('dashboard_layout.main');
+
+        } else {
+            return view('home')->with(['message' => 'انت لا تملك صلاحية '])->extends('dashboard_layout.main');
+
         }
-
-        return view('livewire.category.category', [
-            'categoriess' => CategoryModel::orderBy('id', 'desc')->paginate(10)
-        ])->extends('dashboard_layout.main');
     }
 
 

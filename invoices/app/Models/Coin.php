@@ -13,4 +13,8 @@ class Coin extends Model
         'name',
         'code',
     ];
+    public function bill()
+    {
+        return $this->belongsTo(Bill::class);
+    }
 }

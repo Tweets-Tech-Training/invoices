@@ -30,9 +30,14 @@
                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-between mt-1">
 
                                 <div class="dt-buttons btn-group">
+                                    <?php
+                                    $userHas= auth()->user()->links->pluck('action_name')->toArray();
+                                    ?>
+                                    @if(in_array('user_create',$userHas))
+
                                     <a href="{{route('user.create')}}" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"><i class="feather icon-plus-circle"></i>
                                         اضافة مستخدم جديد                                 </a>
-
+                                        @endif
                                 </div>
                                 <div  class="col-md-4">
                                     <input type="text" placeholder="ادخل الاسم هنا  ...." wire:model="search"  class="form-control form-control-sm mb-1"  style="padding: 1.45rem 2.8rem !important;    border: 1px solid #D6DCE1;
@@ -73,9 +78,22 @@
                                     <td>{{$user->email}}</td>
                                     <td>
                                         <div class="inline-block whitespace-no-wrap">
+
+                                            <?php
+                                            $userH= auth()->user()->links->pluck('action_name')->toArray();
+//
+                                            ?>
+
+                                            @if(in_array('user_edit',$userH))
+
                                             <a   class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light" href="{{ route('user.edit',$user->id) }}" ><i class="feather icon-edit"></i></a>
-                                            <a   class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light" title="permission" href="{{ route('user.permission',$user->id) }}" ><i class="feather icon-lock"></i></a>
-                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light"  wire:click="delete({{ $user->id }})" ><i class="feather icon-trash"></i></button>
+                                            @endif
+                                                @if(in_array('user_permission',$userH))
+                                                    <a   class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light" title="permission" href="{{ route('user.permission',$user->id) }}" ><i class="feather icon-lock"></i></a>
+                                                @endif
+                                                @if(in_array('user_delete',$userH))
+                                                <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light"  wire:click="delete({{ $user->id }})" ><i class="feather icon-trash"></i></button>
+                                                @endif
                                         </div>
                                     </td>
 

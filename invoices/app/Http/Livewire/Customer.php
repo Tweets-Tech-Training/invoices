@@ -19,7 +19,7 @@ class Customer extends Component
             return view('livewire.customer.index',['customerss'=>$customerss,'id'=>''])->extends('dashboard_layout.main');
         }
         return view('livewire.customer.index', [
-            'customerss' => CustomerModel::orderBy('id', 'desc')->paginate(2)
+            'customerss' => CustomerModel::orderBy('id', 'desc')->paginate(10)
         ])->extends('dashboard_layout.main');
     }
     public function delete($id)

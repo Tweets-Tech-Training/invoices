@@ -21,6 +21,7 @@ class CreateBillsTable extends Migration
             $table->string('status') ;
             $table->boolean('related');
             $table->string('payment') ;
+            $table->string('number') ;
             $table->date('date');
             $table->string('image');
             $table->string('customerstatus') ;

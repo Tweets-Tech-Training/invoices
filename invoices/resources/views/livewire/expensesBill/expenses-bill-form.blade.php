@@ -8,7 +8,7 @@
                     <ul class="nav nav-tabs mb-3" role="tablist">
                         <li class="nav-item">
 
-                            <span class="d-none d-sm-block">تعديل البيانات الشخصية </span>
+                            <span class="d-none d-sm-block">اضافة فاتورة جديدة </span>
                             </a>
                         </li>
 
@@ -102,20 +102,20 @@
 
 
         $(document).ready(function() {
-            $('#category_id').select2();
-            tags: true,
+            $("#category_id").select2({
+                placeholder: " اخترالصنف",
+                tags: true,
+                tokenSeparators: [',']
+            });
             $('#category_id').on('change', function (e) {
                 var data = $('#category_id').select2("val");
                    @this.set('bill.expenses_category_id', e.target.value);
             });
         });
 
+
         // $(function () {
-        //     $("#category_id").select2({
-        //         placeholder: " اخترالصنف",
-        //         tags: true,
-        //         tokenSeparators: [',']
-        //     });
+
         // });
 
     </script>

@@ -19,7 +19,7 @@ class CustomerFormLivewire extends Component
 
     public $rules=[
         'customer.name' => 'required',
-        'customer.email' => 'required|email',
+        'customer.commissioner' => 'required',
         'customer.mobile' => 'required| numeric |digits:10',
         'customer.city_id' => 'required',
         'customer.address' => 'required|max:300',
@@ -37,7 +37,7 @@ class CustomerFormLivewire extends Component
 
             $this->validate([
                 'customer.name' => 'required',
-                'customer.email' => 'required|email',
+                'customer.commissioner' => 'required',
                 'customer.mobile' => 'required| numeric |digits:10',
                 'customer.city_id' => 'required',
                 'customer.address' => 'required|max:300',
@@ -47,15 +47,11 @@ class CustomerFormLivewire extends Component
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' =>'تم حفظ البيانات  بنجاح',
-            'url'=>route('customer'),
+            'url'=>route('bill.create'),
         ]);
 
 
         }
-
-
-
-
 
     public function update()
     {
@@ -63,7 +59,7 @@ class CustomerFormLivewire extends Component
 
             $this->validate(
                 ['name' => 'required',
-                'email' => 'required|email',
+                'commissioner' => 'required',
                 'mobile' => 'required| numeric |digits:10',
                 'city_id' => 'required',
                 'address' => 'required|max:300',

@@ -66,7 +66,7 @@
                                  <tr>
                                                     <td>{{$category->id}}</td>
                                                     <td>{{$category->name}}</td>
-                                               <td>{{(new \DateTime($category->created_at))->format('Y.m.d') }}</td>
+                                               <td>{{(new \DateTime($category->created_at))->format('Y/m/d') }}</td>
                                                     <td>
                                                         <div class="inline-block whitespace-no-wrap">
                                                             <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"  wire:click="edit({{ $category->id }})"><i class="feather icon-edit"></i></button>

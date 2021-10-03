@@ -39,7 +39,8 @@ class BillForm extends Component
         'bill.status' => 'required',
         'bill.related' => 'required',
         'bill.payment' => 'nullable',
-        'bill.image' => 'required',
+        'bill.image' => 'nullable',
+        'bill.number' => 'nullable',
         'bill.date' => 'nullable',
         'tax' => 'required',
         'bill.totalprice' => 'nullable',
@@ -70,12 +71,13 @@ class BillForm extends Component
     {
 
 //       dd(   $this->bill,$this->priceArray);
-        if($this->image){
-            $filename=$this->image->store('public/images');
-            $imagename= $this->image->hashName();
+        if ($this->image) {
+            $filename = $this->image->store('public/images');
+            $imagename = $this->image->hashName();
             //$this->image = $imagename;
-            $this->bill->image=$imagename;
+            $this->bill->image = $imagename;
         }
+        //dd($this->bill->customer_id);
         $this->validate([
             'bill.customer_id' => 'required',
             'bill.city_id' => 'required',
@@ -83,16 +85,34 @@ class BillForm extends Component
             'bill.status' => 'required',
             'bill.related' => 'required',
             'bill.payment' => 'nullable',
-            'bill.image' => 'required|max:1024',
+            'bill.image' => 'nullable',
+            'bill.number' => 'nullable',
             'bill.date' => 'nullable',
             'tax' => 'required',
-            'bill.customerstatus' =>'required',
-            'priceArray.*.category_id'=>'required',
-           'priceArray.*.amount' => 'required',
+            'bill.customerstatus' => 'required',
+            'priceArray.*.category_id' => 'required',
+            'priceArray.*.amount' => 'required',
             'priceArray.*.categoryprice' => 'required',
 
         ]);
-      $this->bill->save();
+//        $customer = \App\Models\Customer::firstOrCreate(['name'=>$this->bill->customer_id]);
+//        if($customer){
+//
+//            $customrerId = $customer->id;
+//           $customer =Customer::where('name', $customrerId)->first();
+//        }
+//        $this->bill->customer_id=$customrerId;
+        if (!is_numeric($this->bill->customer_id)){
+            $tag = \App\Models\Customer::firstOrCreate(['name' => $this->bill->customer_id]);
+
+        if ($tag) {
+
+            $expensesId = $tag->id;
+        }
+        $this->bill->customer_id = $expensesId;
+
+          }
+        $this->bill->save();
         foreach ($this->priceArray as $index => $price ){
             $this->priceArray[$index]['unitprice'] =(float) $this->priceArray[$index]['amount'] * (float) $this->priceArray[$index]['categoryprice'];
             $this->total +=   $this->priceArray[$index]['unitprice'];

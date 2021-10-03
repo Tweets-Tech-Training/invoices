@@ -30,8 +30,8 @@
         </li>
 
         <li class=" nav-item"><a href="{{route('customer')}}"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Dashboard">الزبائن</span></a>
-        <li class=" nav-item"><a href="{{route('expensesCategory')}}"><i class="feather icon-cast"></i><span class="menu-title" data-i18n="Dashboard">اصناف المصروفات</span></a>
-         <li class=" nav-item"><a href="{{route('billExpenses')}}"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Dashboard">فواتير المصروفات </span></a>
+        <li class=" nav-item"><a href="{{route('expensesCategory')}}"><i class="feather icon-cast"></i><span class="menu-title" data-i18n="Dashboard">اصناف المشتريات</span></a>
+         <li class=" nav-item"><a href="{{route('billExpenses')}}"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Dashboard">فواتير المشتريات  </span></a>
 
         </li>
 

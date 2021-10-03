@@ -24,7 +24,7 @@ class ExpensesCategory extends Component
             return view('livewire.expensesCategory.expenses-category',['categories'=>$categories,'id'=>''])->extends('dashboard_layout.main');
         }
         else{
-            $categories=ExpensesCategoryModel::orderBy('created_at', 'desc')->paginate(3);
+            $categories=ExpensesCategoryModel::orderBy('created_at', 'desc')->paginate(10);
 
             return view('livewire.expensesCategory.expenses-category', [
                 'categories' => $categories

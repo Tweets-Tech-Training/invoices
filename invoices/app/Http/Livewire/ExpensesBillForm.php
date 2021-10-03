@@ -33,6 +33,14 @@ class ExpensesBillForm extends Component
             'bill.expenses_category_id'=>'required',
             'bill.price' => 'required',
         ]);
+        if (!is_numeric($this->bill->expenses_category_id)) {
+            $tag = \App\Models\ExpensesCategory::firstOrCreate(['name' => $this->bill->expenses_category_id]);
+            if ($tag) {
+
+                $expensesId = $tag->id;
+            }
+            $this->bill->expenses_category_id = $expensesId;
+        }
         $this->bill->save();
 
 

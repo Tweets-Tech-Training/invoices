@@ -40,7 +40,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($links->where('parent_id',0) as $topLink)
+                    @foreach($linkse->where('parent_id',0) as $topLink)
                         <?php
                         $userHasLink = $user->links()->where('links.id',$topLink->id)->count();
 
@@ -48,7 +48,7 @@
                         ?>
                         <tr>
                             <th> {{$topLink->title}} </th>
-                            @foreach($links->where('parent_id',$topLink->id) as $subLink)
+                            @foreach($linkse->where('parent_id',$topLink->id) as $subLink)
                                 <?php
                                 $link = $user->links()->where('links.id',$subLink->id)->count();
                                 ?>
