@@ -1,7 +1,10 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
+                <img src="{{asset('admin-layout/app-assets/images/pages/login.png')}}" alt="branding logo">
+{{--                <img src="{{asset('admin-layout/app-assets/images/ico/apple-icon-120.png')}}">--}}
+            </div>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />

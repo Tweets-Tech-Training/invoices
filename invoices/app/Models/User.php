@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
+//        'phone',
     ];
 
     /**
@@ -62,5 +63,14 @@ class User extends Authenticatable
 
     function links(){
         return $this->belongsToMany(Link::class,'user_links');
+    }
+
+    public function bill()
+    {
+        return $this->belongsTo(Bill::class);
+    }
+    public function expenesesBill()
+    {
+        return $this->belongsTo(ExpenesesBill::class);
     }
 }

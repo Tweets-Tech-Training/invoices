@@ -3,9 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Exports\BillExport;
-use App\Exports\ExpenesesExport;
 use App\Exports\ExpensesExport;
 use App\Models\Bill as BillModel;
+use App\Models\ExpenesesBill;
 use App\Models\ExpenesesBill as ExpenesesBillModel ;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,7 +15,8 @@ class ExpensesBill extends Component
 {
     use WithPagination;
     public  $search_array=[];
-    public $to , $from;
+    public $to , $from,$totalPrice;
+    public $deleteId = '';
     protected $paginationTheme = 'bootstrap';
 
     public function render()
@@ -28,20 +29,22 @@ class ExpensesBill extends Component
 
 
 
-        $bills=ExpenesesBillModel::search($this->search_array)->orderBy('id', 'asc') ->paginate(10);
+        //$bills=ExpenesesBillModel::search($this->search_array)->orderBy('id', 'asc') ;
+        $bills=ExpenesesBill::search($this->search_array)->orderBy('id', 'desc')->paginate(10);
+        $this->totalPrice=$bills->sum('price');
         //dd($this->total=$bills->sum('price'));
         return view('livewire.expensesBill.expenses-bill', [
             'bills' => $bills])->extends('dashboard_layout.main');
     }
-    public function delete($id)
-    {
-        ExpenesesBillModel::find($id)->delete();
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type' => 'success',
-            'message' =>'تم حذف البيانات  بنجاح',
-        ]);
-
-    }
+//    public function delete($id)
+//    {
+//        ExpenesesBillModel::find($id)->delete();
+//        $this->dispatchBrowserEvent('swal:modal', [
+//            'type' => 'success',
+//            'message' =>'تم حذف البيانات  بنجاح',
+//        ]);
+//
+//    }
     public function export()
     {
         return Excel::download(new ExpensesExport($this->search_array), 'bills.xlsx');
@@ -53,6 +56,15 @@ class ExpensesBill extends Component
     {
 
 
+    }
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        ExpenesesBillModel::find($this->deleteId)->delete();
     }
 
 }

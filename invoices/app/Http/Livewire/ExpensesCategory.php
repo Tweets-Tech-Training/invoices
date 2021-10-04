@@ -13,10 +13,14 @@ class ExpensesCategory extends Component
     public $name,$search, $category_id;
     public $updateMode = false;
     public $isModalOpen = 0;
-    protected $rules = [
-        'name' => 'required|min:6',
+    public $deleteId = '';
+    protected function rules()
+    {
+        return        [
+            'name' =>  $this->category_id?'required|string|max:255|unique:expenses_categories,name, '. $this->category_id:'required|string|max:255|unique:expenses_categories,name',
 
-    ];
+        ];
+    }
     public function render()
     {
         if($this->search){
@@ -56,10 +60,7 @@ class ExpensesCategory extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required',
-
-        ]);
+        $this->validate();
 
         ExpensesCategoryModel::updateOrCreate(['id' => $this->category_id], [
             'name' =>$this->name,
@@ -99,9 +100,7 @@ class ExpensesCategory extends Component
 
     public function update()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
+        $this->validate();
 
         if ($this->category_id) {
             $category = ExpensesCategoryModel::find($this->category_id);
@@ -120,10 +119,13 @@ class ExpensesCategory extends Component
         }
     }
 
-
-    public function delete($id)
+    public function deleteId($id)
     {
-        if ( ExpenesesBill::where('expenses_category_id', $id)->exists()) {
+        $this->deleteId = $id;
+    }
+    public function delete()
+    {
+        if ( ExpenesesBill::where('expenses_category_id', $this->deleteId)->exists()) {
 
             $this->dispatchBrowserEvent('swal2:modal', [
                 'message' =>'لا يمكن حذف البيانات  ',
@@ -131,7 +133,7 @@ class ExpensesCategory extends Component
             ]);
 
         }else {
-            ExpensesCategoryModel::find($id)->delete();
+            ExpensesCategoryModel::find($this->deleteId)->delete();
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
                 'message' => ' تم حذف البيانات ',

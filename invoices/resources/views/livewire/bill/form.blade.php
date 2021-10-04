@@ -30,12 +30,14 @@
                         <div class="card-body">
                             <div class="col-md-12">
                                 @if($bill->id)
-                                    <h5> تعديل الفواتير  </h5>
+                                    <h5>  تعديل الفاتورة رقم:
+                                        <span style="color = #9F191F"> {{$bill->id}}</span> <hr > </h5>
+
                                 @else
-                                <h5> اضافة فاتورة  </h5>
+                                <h5> <span>{{ $billNewId }} </span>  اضافة فاتورة رقم :  <hr >  </h5>
                                 @endif
+
                             </div>
-                            <br>
                             <div class="row">
                             <div class="col-12 col-md-9">
                             <div class="row">
@@ -60,7 +62,7 @@
                                     <br>
 
                                     <a type="button" class="btn btn-outline-primary waves-effect waves-light"  href="{{route('customer.create')}}" >اضافة زبون جديد <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus align-middle"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a>
-
+{{--                                    <a type="button" class="btn btn-outline-primary waves-effect waves-light"  wire:click="create" >اضافة زبون جديد <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus align-middle"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></a>--}}
                                 </div>
                             </div>
 
@@ -150,6 +152,7 @@
                                             <option {{old('payment')=='money_transfer'? 'selected': ''}} value="money_transfer">حوالة</option>
                                             <option {{old('payment')=='check'? 'selected': ''}} value="check">شيك   </option>
                                             <option {{old('payment')=='cash'? 'selected': ''}} value="cash">نقدا   </option>
+                                            <option {{old('payment')=='pay'? 'selected': ''}} value="pay">جوال pay   </option>
 
 
                                         </select>
@@ -357,7 +360,39 @@
                 </div>
         </div>
 
+    <!-- Create  Modal -->
+    <div class="modal" id="CreateCustomerModal"  wire:ignore.self >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> اضافة صنف جديد </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">الاسم  :</label>
+                        <input type="text" wire:model="name" class="form-control" name="name" id="name">
+                        @error('name') <span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
 
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-danger" data-dismiss="modal">الغاء</button>
+                    <button type="button" class="btn btn-success" wire:click.prevent="store" id="SubmitCreateCategoryForm">حفظ</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

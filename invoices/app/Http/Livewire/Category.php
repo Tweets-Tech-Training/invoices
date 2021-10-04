@@ -15,10 +15,14 @@ class Category extends Component
     public $categories, $name,$search, $category_id;
     public $updateMode = false;
     public $isModalOpen = 0;
-    protected $rules = [
-        'name' => 'required|min:6',
+    public $deleteId = '';
+    protected function rules()
+    {
+        return        [        'name' =>  $this->category_id?'required|string|max:255|unique:categories,name, '. $this->category_id:'required|string|max:255|unique:categories,name',
 
-    ];
+            ];
+    }
+
     public function render()
     {
 
@@ -63,10 +67,7 @@ class Category extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required',
-
-        ]);
+        $this->validate();
 
         CategoryModel::updateOrCreate(['id' => $this->category_id], [
             'name' =>$this->name,
@@ -106,12 +107,13 @@ class Category extends Component
 
     public function update()
     {
-        $this->validate([
-            'name' => 'required',
-        ]);
-
         if ($this->category_id) {
             $city = CategoryModel::find($this->category_id);
+            $this->validate([
+                'name' =>  $this->category_id?'required|string|max:255|unique:categories,name, '. $this->category_id:'required|string|max:255|unique:categories,name',
+
+                //'name' => 'required|unique:categories',
+            ]);
             $city->update([
                 'name' => $this->name,
 
@@ -127,11 +129,15 @@ class Category extends Component
         }
     }
 
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
 
-    public function delete($id)
+    public function delete()
     {
 
-        if (Order::where('category_id', $id)->exists()) {
+        if (Order::where('category_id', $this->deleteId )->exists()) {
 
             $this->dispatchBrowserEvent('swal2:modal', [
                 'message' =>'لا يمكن حذف البيانات  ',
@@ -139,7 +145,7 @@ class Category extends Component
             ]);
 
         }else{
-            CategoryModel::find($id)->delete();
+            CategoryModel::find($this->deleteId )->delete();
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
                 'message' =>'لا يمكن حذف البيانات ',

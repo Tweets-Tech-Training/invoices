@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bill;
+use App\Models\ExpenesesBill;
 use Livewire\Component;
 use App\Models\User as UserModel;
 use Livewire\WithFileUploads;
@@ -13,8 +15,7 @@ class User extends Component
     protected $paginationTheme = 'bootstrap';
     use WithPagination;
     public $user , $search;
-
-
+    public $deleteId = '';
 
     public function render()
     {
@@ -24,7 +25,7 @@ class User extends Component
             return view('livewire.user.user'
                 ,['users' => $users])->extends('dashboard_layout.main');
         }else{
-            $users=UserModel::orderBy('id', 'asc') ->paginate(10);
+            $users=UserModel::orderBy('id', 'desc') ->paginate(10);
             return view('livewire.user.user'
                 ,['users' => $users])->extends('dashboard_layout.main');
         }
@@ -36,26 +37,36 @@ class User extends Component
         }
 
     }
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
 
-
-    public function delete($id)
+    public function delete()
     {
 
          $authUser=auth()->user();
         // dd($authUser->id == $id);
-        if ($authUser->id == $id){
+        if ($authUser->id == $this->deleteId){
             $this->dispatchBrowserEvent('swal2:modal', [
                 'message' =>'لا يمكن حذف المستخدم   ',
 
             ]);
         }else{
-            UserModel::find($id)->delete();
-            $this->dispatchBrowserEvent('swal:modal', [
-                'type' => 'success',
-                'message' =>'تم حذف البيانات  بنجاح',
-            ]);
+            if (  Bill::where('user_id', $this->deleteId)->exists()
+            || ExpenesesBill::where('user_id', $this->deleteId)->exists()) {
+                $this->dispatchBrowserEvent('swal2:modal', [
+                    'message' =>'لا يمكن حذف المستخدم   ',
+                ]);
+            }
+            else{
+                UserModel::find($this->deleteId)->delete();
+                $this->dispatchBrowserEvent('swal:modal', [
+                    'type' => 'success',
+                    'message' =>'تم حذف البيانات  بنجاح',
+                ]);
+            }
         }
-
 
     }
 }

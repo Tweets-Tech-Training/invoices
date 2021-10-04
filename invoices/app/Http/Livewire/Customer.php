@@ -12,6 +12,7 @@ class Customer extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search;
+    public $deleteId = '';
     public function render()
     {
         if($this->search){
@@ -22,11 +23,16 @@ class Customer extends Component
             'customerss' => CustomerModel::orderBy('id', 'desc')->paginate(10)
         ])->extends('dashboard_layout.main');
     }
-    public function delete($id)
+
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+    public function delete()
     {
 
 
-        if (Bill::where('customer_id', $id)->exists()) {
+        if (Bill::where('customer_id',$this->deleteId)->exists()) {
 
             $this->dispatchBrowserEvent('swal2:modal', [
                 'message' =>'لا يمكن حذف الزبون  ',
@@ -34,7 +40,7 @@ class Customer extends Component
             ]);
 
         }else{
-        CustomerModel::find($id)->delete();
+        CustomerModel::find($this->deleteId)->delete();
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' =>'تم حذف البيانات  بنجاح',

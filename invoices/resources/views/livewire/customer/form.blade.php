@@ -28,7 +28,7 @@
 
                             <div class=" form-group col-md-5 required">
 
-                                <label  class="form-label">الاسم </label>
+                                <label  class="form-label">اسم الشركة </label>
                                 <input type="text"  wire:model="customer.name" id="name" name="name" class="form-control" >
                                 @error('customer.name') <span class="text-danger">{{ $message }}</span>@enderror
 

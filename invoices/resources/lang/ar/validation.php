@@ -119,6 +119,7 @@ return [
 
     'attributes'           => [
         'priceArray.*.category_id' => 'الصنف ' ,
+        'commissioner'  => 'اسم مفوض الشركة ' ,
         'priceArray.*.amount' => 'الكمية  ' ,
         'priceArray.*.categoryprice' => 'السعر للوحدة ' ,
         'expenses_category_id' => 'صنف المصروفات  ',

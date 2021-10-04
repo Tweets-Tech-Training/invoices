@@ -224,6 +224,25 @@
     //     });
     // });
 
+    window.addEventListener('swal:confirmation', event => {
+        Swal.fire({
+            title: 'هل انت متأكد ؟؟',
+            //text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'نعم ! احذف '
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'الحذف !!',
+                    'سوف يتم حذف البيانات ',
+                    'بنجاح',
+                )
+            }
+        })
+    });
     window.addEventListener('swal2:modal', event => {
     Swal.fire({
         icon: 'error',

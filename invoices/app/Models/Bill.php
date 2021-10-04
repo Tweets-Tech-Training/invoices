@@ -21,7 +21,8 @@ class Bill extends Model
         'customerstatus',
         'totalprice',
         'tax',
-        'result'
+        'result',
+        'user_id'
 
         ];
 
@@ -39,7 +40,9 @@ class Bill extends Model
         return $this->belongsTo(Customer::class,'customer_id');
     }
 
-
+    public function users(){
+        return $this->belongsTo(User::class,'user_id');
+    }
     public function orders()
     {
         return $this->hasMany(Order::class);

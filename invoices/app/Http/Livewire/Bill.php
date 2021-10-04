@@ -15,6 +15,7 @@ class Bill extends Component
 {
     use WithPagination;
     public $search;
+    public $deleteId = '';
     public $status , $name, $from,$totalResult , $to  ,$search_array=[];
     protected $paginationTheme = 'bootstrap';
     public function render()
@@ -25,7 +26,7 @@ class Bill extends Component
 //                'created_at',
 //                Carbon::now()
 //            )->sum('result');
-            $bills= \App\Models\Bill::search($this->search_array)->orderBy('id', 'asc')->paginate(10);
+            $bills= \App\Models\Bill::search($this->search_array)->orderBy('id', 'desc')->paginate(10);
             $this->totalResult=$bills->sum('result');
            $coins= \App\Models\Coin::all();
             return view('livewire.bill.bill', [
@@ -36,15 +37,7 @@ class Bill extends Component
         }
 
     }
-    public function delete($id)
-    {
-        BillModel::find($id)->delete();
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type' => 'success',
-            'message' =>'تم حذف البيانات  بنجاح',
-        ]);
 
-    }
     public function export()
     {
         return Excel::download(new BillExport($this->search_array), 'bills.xlsx');
@@ -58,6 +51,15 @@ class Bill extends Component
 
     }
 
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        BillModel::find($this->deleteId)->delete();
+    }
 
 
 

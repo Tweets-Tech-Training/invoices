@@ -23,7 +23,7 @@ class BillExport implements FromView
 
        // if($this->status){
         if($this->search_array){
-            $bills=Bill::search($this->search_array)->orderBy('id', 'asc')->get();
+            $bills=Bill::search($this->search_array)->orderBy('id', 'desc')->get();
             $this->total=$bills->sum('result');
            // $bills= Bill::where('status',$this->status)->get();
             return view('livewire.bill.excel')->with([
@@ -32,7 +32,7 @@ class BillExport implements FromView
             ]);
         }
         else{
-            $bills= Bill::get();
+            $bills= Bill::orderBy('id', 'desc')->get();
             $this->total=$bills->sum('result');
             return view('livewire.bill.excel')->with([
                 'bills'=>$bills ,

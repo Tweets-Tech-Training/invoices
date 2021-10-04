@@ -10,7 +10,7 @@ use App\Models\Bill;
 class ExpensesBillForm extends Component
 {
 
-    public  $expenses_category_id ;
+    public  $expenses_category_id , $userId;
     public function mount($id=null)
     {
         $this->bill = $id?ExpenesesBillModel::find($id):new ExpenesesBillModel();
@@ -18,6 +18,8 @@ class ExpensesBillForm extends Component
     public $rules=[
         'bill.price' => 'required',
        'bill.expenses_category_id'=>'required',
+        'bill.note'=>'nullable',
+        'bill.user_id' => 'nullable',
 //        required'expenses_category_id'=>'required',
         ];
     public function render()
@@ -28,11 +30,18 @@ class ExpensesBillForm extends Component
     }
 
     public function save(){
+
+        $this->userId=auth()->user()->id;
         $this->validate([
             //'bill.expenses_category_id' => 'required',
             'bill.expenses_category_id'=>'required',
             'bill.price' => 'required',
+            'bill.note'=>'nullable',
+            'bill.user_id' => 'nullable',
         ]);
+
+
+
         if (!is_numeric($this->bill->expenses_category_id)) {
             $tag = \App\Models\ExpensesCategory::firstOrCreate(['name' => $this->bill->expenses_category_id]);
             if ($tag) {
@@ -44,7 +53,9 @@ class ExpensesBillForm extends Component
         $this->bill->save();
 
 
-
+        $this->bill->update([
+            'user_id' => $this->userId,
+        ]);
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',
             'message' =>'تم حفظ البيانات  بنجاح',

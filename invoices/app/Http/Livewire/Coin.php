@@ -12,11 +12,18 @@ class Coin extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search ;
+    public $deleteId = '';
     public $coins, $name, $coin_id , $code;
     public $updateMode = false;
     public $isModalOpen = 0;
 
-
+    protected function rules()
+    {
+        return        [
+            'name' =>  $this->coin_id?'required|string|max:255|unique:coins,name, '. $this->coin_id:'required|string|max:255|unique:coins,name',
+            'code' => 'required',
+        ];
+    }
     public function render()
     {
         if($this->search){
@@ -49,11 +56,7 @@ class Coin extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required',
-            'code' => 'required',
-
-        ]);
+        $this->validate();
 
         CoinModel::updateOrCreate(['id' => $this->coin_id], [
             'name' =>$this->name,
@@ -94,11 +97,7 @@ class Coin extends Component
     public function update()
     {
 
-        $this->validate([
-            'name' => 'required',
-            'code' => 'required',
-
-        ]);
+        $this->validate();
 
         if ($this->coin_id) {
             $coin = CoinModel::find($this->coin_id);
@@ -117,13 +116,16 @@ class Coin extends Component
 
         }
     }
-
+//    public function deleteId($id)
+//    {
+//        $this->deleteId = $id;
+//       // $this->emit('modalShow','#DeleteCoinModal');
+//    }
 
     public function delete($id)
     {
 
-
-        if (Bill::where('coin_id', $id)->exists()) {
+        if (Bill::where('coin_id',$id)->exists()) {
 
             $this->dispatchBrowserEvent('swal2:modal', [
                 'message' =>'لا يمكن حذف البيانات  ',

@@ -17,13 +17,23 @@ class CustomerFormLivewire extends Component
         $this->customer = $id?Customer::find($id):new Customer();
     }
 
-    public $rules=[
-        'customer.name' => 'required',
+//    public $rules=[
+//        'customer.name' =>  $this->customer->id?'required|string|max:255|unique:customers,name, '. $this->customer->id:'required|string|max:255|unique:customers,name',
+//
+//        'customer.commissioner' => 'required',
+//        'customer.mobile' => 'required| numeric |digits:10',
+//        'customer.city_id' => 'required',
+//        'customer.address' => 'required|max:300',
+//    ];
+    protected function rules()
+    {
+        return [ 'customer.name' =>  $this->customer->id?'required|string|max:255|unique:customers,name, '. $this->customer->id:'required|string|max:255|unique:customers,name',
         'customer.commissioner' => 'required',
-        'customer.mobile' => 'required| numeric |digits:10',
+        'customer.mobile' => 'required| numeric | digits:12',
         'customer.city_id' => 'required',
         'customer.address' => 'required|max:300',
     ];
+        }
     public function render()
     {
 
@@ -35,13 +45,7 @@ class CustomerFormLivewire extends Component
     public function save()
     {
 
-            $this->validate([
-                'customer.name' => 'required',
-                'customer.commissioner' => 'required',
-                'customer.mobile' => 'required| numeric |digits:10',
-                'customer.city_id' => 'required',
-                'customer.address' => 'required|max:300',
-            ]);
+            $this->validate();
             $this->customer->save();
 //            $this->dispatchBrowserEvent('swal:modal', ['title' => 'تم حفظ البيانات بنجاح ']);
         $this->dispatchBrowserEvent('swal:modal', [

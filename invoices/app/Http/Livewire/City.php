@@ -24,6 +24,13 @@ class City extends Component
 //    {
 //        $this->$city = $city;
 //    }
+
+    protected function rules()
+    {
+        return        [        'name' =>  $this->city_id?'required|string|max:255|unique:cities,name, '. $this->city_id:'required|string|max:255|unique:cities,name',
+
+        ];
+    }
     public function render()
     {
         if(auth()->user()->links->toArray()) {
@@ -62,10 +69,7 @@ class City extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required',
-
-        ]);
+        $this->validate();
 
         CityModel::updateOrCreate(['id' => $this->city_id], [
             'name' =>$this->name,
@@ -104,10 +108,7 @@ class City extends Component
     public function update()
     {
 //        dd("jsd");
-        $validatedDate = $this->validate([
-            'name' => 'required',
-
-        ]);
+        $validatedDate = $this->validate();
 
         if ($this->city_id) {
             $city = CityModel::find($this->city_id);
@@ -125,11 +126,14 @@ class City extends Component
 
         }
     }
-
-
-    public function delete($id)
+    public function deleteId($id)
     {
-        if (Bill::where('city_id', $id)->exists()) {
+        $this->deleteId = $id;
+    }
+
+    public function delete()
+    {
+        if (Bill::where('city_id',$this->deleteId)->exists()) {
             //throw ValidationException::withMessages([
 //            throw ValidationException::withMessages([
 //                'city' => ['You can remove it because it is used.']
@@ -143,7 +147,7 @@ class City extends Component
 
 
       else{
-    CityModel::find($id)->delete();
+    CityModel::find($this->deleteId)->delete();
     $this->dispatchBrowserEvent('swal:modal', [
         'type' => 'success',
         'message' =>'تم حذف البيانات  بنجاح',

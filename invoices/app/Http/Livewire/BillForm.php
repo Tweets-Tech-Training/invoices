@@ -15,14 +15,15 @@ class BillForm extends Component
     use WithFileUploads ;
 
     public $bill;
-
+ public $userId;
 //    public $city_id;
 
     public $priceArray=[
     ['category_id'=>null,'amount'=>null,'categoryprice'=>null,'unitprice'=>null]
                 ];
-    public $billss, $name, $image ,$unitprice ,$tax ,$categoryprice , $amount;
+    public $billss, $name, $image ,$unitprice  ,$categoryprice , $amount;
     public $total,$result1;
+    public $tax =1;
     public function mount($id=null)
     {
         $this->bill = $id?Bill::find($id):new Bill();
@@ -42,6 +43,7 @@ class BillForm extends Component
         'bill.image' => 'nullable',
         'bill.number' => 'nullable',
         'bill.date' => 'nullable',
+        'bill.user_id' => 'nullable',
         'tax' => 'required',
         'bill.totalprice' => 'nullable',
         'bill.result' => 'nullable',
@@ -57,20 +59,33 @@ class BillForm extends Component
         $citites = \App\Models\City::get();
         $categories = Category::get();
         $coins = Coin::get();
+        if(Bill::latest()){
+            $billNewId=1351;
+        }else{
+            $billNewId=(Bill::latest()->first()->id)+1;
+        }
+
+//        dd($billNewId);
         return view('livewire.bill.form')->with([
             'customers' => $customers,
             'citites' => $citites,
             'categories' => $categories,
             'coins' => $coins,
+            'billNewId'=>$billNewId
         ])->extends('dashboard_layout.main');
 
     }
+    public function create()
+    {
 
+        $this->reset();
+        $this->emit('modalShow','#CreateCustomerModal');
+    }
 
     public function save()
     {
-
-//       dd(   $this->bill,$this->priceArray);
+        $this->userId=auth()->user()->id;
+       //dd(  $this->userId );
         if ($this->image) {
             $filename = $this->image->store('public/images');
             $imagename = $this->image->hashName();
@@ -88,7 +103,8 @@ class BillForm extends Component
             'bill.image' => 'nullable',
             'bill.number' => 'nullable',
             'bill.date' => 'nullable',
-            'tax' => 'required',
+            'bill.user_id' => 'nullable',
+            'tax' => 'nullable',
             'bill.customerstatus' => 'required',
             'priceArray.*.category_id' => 'required',
             'priceArray.*.amount' => 'required',
@@ -113,6 +129,10 @@ class BillForm extends Component
 
           }
         $this->bill->save();
+        $this->bill->update([
+            'user_id' => $this->userId,
+        ]);
+
         foreach ($this->priceArray as $index => $price ){
             $this->priceArray[$index]['unitprice'] =(float) $this->priceArray[$index]['amount'] * (float) $this->priceArray[$index]['categoryprice'];
             $this->total +=   $this->priceArray[$index]['unitprice'];
@@ -125,10 +145,12 @@ class BillForm extends Component
                 ]);
         }
         $this->result1 = $this->total * $this->tax;
+
         $this->bill->update([
             'tax' =>  $this->tax,
             'totalprice' =>$this->total,
            'result' =>$this->result1,
+
         ]);
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',

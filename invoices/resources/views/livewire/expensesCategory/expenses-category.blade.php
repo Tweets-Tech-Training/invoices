@@ -70,12 +70,12 @@
                                 <tr>
                                     <td>{{$category->id}}</td>
                                     <td>{{$category->name}}</td>
-                                    <td>{{(new \DateTime($category->created_at))->format('Y/m/d') }}</td>
+                                    <td>{{(new \DateTime($category->created_at))->format('Y/m/d A h:i') }}</td>
 
                                     <td>
                                         <div class="inline-block whitespace-no-wrap">
                                             <button type="button" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"  wire:click="edit({{ $category->id }})"><i class="feather icon-edit"></i></button>
-                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" wire:click="delete({{ $category->id }})" ><i class="feather icon-trash"></i></button>
+                                            <button type="button" wire:click="deleteId({{ $category->id }})" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#exampleModal"><i class="feather icon-trash"></i></button>
 
                                         </div>
                                     </td>
@@ -191,24 +191,24 @@
 
 
 
-    <div class="modal" id="DeleteCategoryModal">
-        <div class="modal-dialog">
+    <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">حذف الصنف </h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true close-btn">×</span>
+                    </button>
                 </div>
-                <!-- Modal body -->
                 <div class="modal-body">
-                    <h4>هل انت متأكد؟</h4>
+                    <p>هل انت متأكد؟؟</p>
                 </div>
-                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="SubmitDeleteCategoryForm">نعم </button>
-                    <button type="button" class="btn btn-default" data-target="#DeleteCategoryModal" id="getDeleteId" data-dismiss="modal">لا</button>
+                    <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">الغاء</button>
+                    <button type="button" wire:click.prevent="delete" class="btn btn-danger close-modal" data-dismiss="modal">نعم !! احذف </button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

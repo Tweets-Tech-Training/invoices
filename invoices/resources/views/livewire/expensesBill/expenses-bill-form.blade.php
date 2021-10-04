@@ -68,7 +68,17 @@
 
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-2">
+                                                <span>الملاحظات </span>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <textarea wire:model="bill.note" class="form-control">  </textarea>
+{{--                                                <input type="text"  class="form-control"  name="price" wire:model="bill.price">--}}
+                                                @error('bill.note') <span class="text-danger">{{ $message }}</span> @enderror
 
+                                            </div>
+                                        </div>
 
 
                                     </div>

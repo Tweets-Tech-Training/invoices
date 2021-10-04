@@ -35,7 +35,7 @@
                                     <td>{{$bill->status == "recived"?'مستلمة':'غير مستلمة'}}</td>
                                     <td>{{$bill->result}}</td>
                                     <td>{{$bill->customers?$bill->customers->mobile:''}}</td>
-                                    <td>{{(new \DateTime($bill->created_at))->format('Y/m/d') }}</td>
+                                    <td>{{(new \DateTime($bill->created_at))->format('  A h:i   Y/m/d ') }}</td>
                                 </tr>
 
                             @endforeach

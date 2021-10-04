@@ -37,6 +37,13 @@
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-3">
+                                                            <div class="form-group" >
+                                                                <label for="name">اجمالي المبلغ المطلوب  :</label>
+                                                                <input type="text" value="{{$totalPrice}}" class="form-control" name="totalPrice" id="totalPrice " disabled>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <label for="اسم الدورة"> اسم الصنف </label>
                                                                 <input type="text" wire:model.defer="search_array.name" id="name" class="form-control" placeholder="اسم الصنف " name="اسم الصنف">
@@ -131,9 +138,9 @@
                                 <th rowspan="1" colspan="1">
                                     التاريخ
                                 </th>
-
-
-
+                                <th rowspan="1" colspan="1">
+                                    اسم المستخدم
+                                </th>
                                 <th rowspan="1" colspan="1">
                                     الخيارات
                                 </th>
@@ -146,13 +153,15 @@
                                 <tr>
                                     <td>{{$bill->id}}</td>
                                     <td>{{$bill->expensesCategories?$bill->expensesCategories->name:''}}</td>
-                                    <td> {{ $bill->price }}</td>
-                                    <td>{{(new \DateTime($bill->created_at))->format('Y/m/d') }}</td>
+                                    <td> {{ (int) $bill->price }}</td>
+                                    <td>{{(new \DateTime($bill->created_at))->format('Y/m/d  A h:i  ') }}</td>
+                                    <td>{{$bill->users?$bill->users->name:''}}</td>
 
                                     <td>
                                         <div class="inline-block whitespace-no-wrap">
                                             <a   class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light"   href="{{ route('billExpenses.edit',$bill->id) }}" ><i class="feather icon-edit"></i></a>
-                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" wire:click="delete({{ $bill->id }})"  ><i class="feather icon-trash"></i></button>
+{{--                                            <button type="button" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" wire:click="delete({{ $bill->id }})"  ><i class="feather icon-trash"></i></button>--}}
+                                            <button type="button" wire:click="deleteId({{ $bill->id }})" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#exampleModal"><i class="feather icon-trash"></i></button>
 
                                         </div>
                                     </td>
@@ -189,6 +198,27 @@
             </section>
         </div>
 
+
+        <!---- modal delete------>
+        <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true close-btn">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>هل انت متأكد؟؟</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">الغاء</button>
+                        <button type="button" wire:click.prevent="delete" class="btn btn-danger close-modal" data-dismiss="modal">نعم !! احذف </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>

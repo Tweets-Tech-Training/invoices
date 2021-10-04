@@ -16,7 +16,9 @@ class CreateExpensesBillsTable extends Migration
         Schema::create('expenses_bills', function (Blueprint $table) {
             $table->id();
             $table->integer('expenses_category_id');
+            $table->string('note');
             $table->decimal('price',10,2);
+            $table->integer('user_id') ;
             $table->timestamps();
         });
     }
