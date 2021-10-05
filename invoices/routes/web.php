@@ -4,6 +4,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ShowController;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\City;
 use App\Http\Livewire\Coin;
@@ -17,6 +19,8 @@ use App\Http\Livewire\Userform;
 use App\Http\Livewire\ExpensesCategory;
 use App\Http\Livewire\ExpensesBill;
 use App\Http\Livewire\ExpensesBillForm;
+use Illuminate\Validation\ValidationException;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +36,12 @@ Route::get('/', function () {
    // dd('ddd');
     return redirect()->route('login');
 });
-
+//Route::post('/login', function () {
+//
+//
+//    // dd('ddd');
+//   // return redirect()->route('login');
+//})->name('admin.login');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/Maindashboard', Dashboard::class)->name('Maindashboard');

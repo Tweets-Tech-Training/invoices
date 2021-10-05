@@ -169,10 +169,9 @@
                                 </tr>
 
                             @empty
-                              <tr>   <td>
+
                                       <div class='alert alert-info mt-4'>لا يوجد عناصر لعرضها </div>
-                                  </td>
-                              </tr>
+
 
 
                             @endforelse

@@ -1,7 +1,28 @@
 <div>
     {{-- Do your work, then step back. --}}
     <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-12 d-flex flex-sm-row flex-column justify-content-between mt-1">
+{{--                <div class="col-6">--}}
+                    <a href="/billExpenses/create" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light" >
+                        <i class="feather icon-plus-circle"></i>
+                                           اضافة فواتير المشتريات
+                    </a>
+{{--                </div>--}}
+{{--                 <div class="col-6">--}}
+                    <a href="/bill/create" class="btn btn-outline-success mr-1 mb-1 waves-effect waves-light" >
+                        <i class="feather icon-plus-circle"></i>
+                                           اضافة فواتير المبيعات
+                    </a>
+{{--                /--}}
+{{--                </div>--}}
+            </div>
 
+        </div>
+        </div>
+        <br>
+        <div class="row">
         <div class=" col-md-3 col-sm-6">
             <div class="card text-center">
                 <div class="card-content">
@@ -17,7 +38,6 @@
                 </div>
             </div>
         </div>
-
         <div class=" col-md-3 col-sm-6">
             <div class="card text-center">
                 <div class="card-content">

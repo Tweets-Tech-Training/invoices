@@ -148,7 +148,7 @@ class Category extends Component
             CategoryModel::find($this->deleteId )->delete();
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
-                'message' =>'لا يمكن حذف البيانات ',
+                'message' =>'تم حذف البيانات ',
             ]);
         }
 

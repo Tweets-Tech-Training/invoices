@@ -22,10 +22,23 @@ class Bill extends Model
         'totalprice',
         'tax',
         'result',
-        'user_id'
+        'user_id',
+        'invoice_date'
 
         ];
+    protected $appends = ['invoice_date'];
 
+    public function getInvoiceDateAttribute($invoice_date)
+    {
+        if($invoice_date){
+            return  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $invoice_date)->format('d-m-Y');
+
+        }else{
+            return  'غير مدخل ';
+        }
+
+
+    }
 
     function city(){
 

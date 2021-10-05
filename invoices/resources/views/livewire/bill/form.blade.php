@@ -30,11 +30,11 @@
                         <div class="card-body">
                             <div class="col-md-12">
                                 @if($bill->id)
-                                    <h5>  تعديل الفاتورة رقم:
-                                        <span style="color = #9F191F"> {{$bill->id}}</span> <hr > </h5>
+                                    <h5>  تعديل الفاتورة رقم: <span style="color:#9F191F;"> {{$bill->id}} </span>
+                                        <hr > </h5>
 
                                 @else
-                                <h5> <span>{{ $billNewId }} </span>  اضافة فاتورة رقم :  <hr >  </h5>
+                                <h5>    اضافة فاتورة رقم : <span style="color:#9F191F;">{{ $billNewId }} </span> <hr >  </h5>
                                 @endif
 
                             </div>
@@ -123,7 +123,7 @@
                             <div class="row">
                                 <div class="col-md-4 ">
                                     <div class="form-group required">
-                                        <label class="form-label">   الحالة
+                                        <label class="form-label">   حالة الفاتورة
                                         </label>
                                         <select class="form-select form-control"   wire:model="bill.status" aria-label="Default select example" name="status"
                                                 id="status">
@@ -176,6 +176,13 @@
                                         @error('bill.related') <span class="text-danger">{{ $message }}</span>@enderror
 
                                     </div>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                        <label>تاريخ الفاتورة </label>
+                                        <input type="date"   wire:model="bill.invoice_date" name="invoice_date"  class="form-control" >
+                                        @error("bill.invoice_date") <span class="text-danger">{{ $message }}</span>@enderror
 
                                 </div>
 

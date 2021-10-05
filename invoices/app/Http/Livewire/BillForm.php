@@ -9,6 +9,7 @@ use App\Models\Bill;
 use App\Models\Order;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use function PHPUnit\Framework\isEmpty;
 
 class BillForm extends Component
 {
@@ -21,7 +22,7 @@ class BillForm extends Component
     public $priceArray=[
     ['category_id'=>null,'amount'=>null,'categoryprice'=>null,'unitprice'=>null]
                 ];
-    public $billss, $name, $image ,$unitprice  ,$categoryprice , $amount;
+    public $billss, $name, $image ,$unitprice  ,$categoryprice ,$billNewId , $amount;
     public $total,$result1;
     public $tax =1;
     public function mount($id=null)
@@ -43,6 +44,7 @@ class BillForm extends Component
         'bill.image' => 'nullable',
         'bill.number' => 'nullable',
         'bill.date' => 'nullable',
+        'bill.invoice_date' => 'nullable',
         'bill.user_id' => 'nullable',
         'tax' => 'required',
         'bill.totalprice' => 'nullable',
@@ -59,19 +61,20 @@ class BillForm extends Component
         $citites = \App\Models\City::get();
         $categories = Category::get();
         $coins = Coin::get();
-        if(Bill::latest()){
-            $billNewId=1351;
+        $billSe=Bill::get();
+        if($billSe->isEmpty() ){
+            $this->billNewId=1351;
         }else{
-            $billNewId=(Bill::latest()->first()->id)+1;
+            $this->billNewId=(Bill::latest()->first()->id)+1;
         }
 
-//        dd($billNewId);
+//        dd($this->billNewId);
         return view('livewire.bill.form')->with([
             'customers' => $customers,
             'citites' => $citites,
             'categories' => $categories,
             'coins' => $coins,
-            'billNewId'=>$billNewId
+            'billNewId'=>$this->billNewId
         ])->extends('dashboard_layout.main');
 
     }
@@ -103,6 +106,7 @@ class BillForm extends Component
             'bill.image' => 'nullable',
             'bill.number' => 'nullable',
             'bill.date' => 'nullable',
+            'bill.invoice_date' => 'nullable',
             'bill.user_id' => 'nullable',
             'tax' => 'nullable',
             'bill.customerstatus' => 'required',

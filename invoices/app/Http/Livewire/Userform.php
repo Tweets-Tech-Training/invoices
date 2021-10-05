@@ -32,6 +32,8 @@ class Userform extends Component
 //            'user.email' => ['required', 'email', 'not_in:' . $this->user->id],
             'password' => 'required',
             'user.image' => 'required',
+            'user.phone' =>  $this->user->id?'required|string|max:255|unique:users,phone, '. $this->user->id:"required|string|max:255|unique:users,phone",
+
         ];
     }
 

@@ -36,6 +36,15 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-md-2">
+                                                <span>رقم الجوال </span>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" wire:model="user.phone"  name="name"  placeholder="الاسم">
+                                                @error('user.phone') <span class="text-danger">{{ $message }}</span> @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-2">
                                                 <span>البريد الالكتروني</span>
                                             </div>
                                             <div class="col-md-8">

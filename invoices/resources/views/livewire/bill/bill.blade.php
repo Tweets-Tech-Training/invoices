@@ -42,12 +42,12 @@
                                                                 <input type="text" wire:model.defer="search_array.name" id="name" class="form-control" placeholder="اسم الشركة " name="اسم الشركة">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-group">
-                                                                <label for="اسم الدورة"> اسم مفوض الشركة </label>
-                                                                <input type="text" wire:model.defer="search_array.commissioner" id="commissioner" class="form-control" placeholder="اسم مفوض الشركة " name="اسم امفوض الشركة">
-                                                            </div>
-                                                        </div>
+{{--                                                        <div class="col-md-3">--}}
+{{--                                                            <div class="form-group">--}}
+{{--                                                                <label for="اسم الدورة"> اسم مفوض الشركة </label>--}}
+{{--                                                                <input type="text" wire:model.defer="search_array.commissioner" id="commissioner" class="form-control" placeholder="اسم مفوض الشركة " name="اسم امفوض الشركة">--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
                                                         <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <label for="اسم الدورة">   رقم الجوال  </label>
@@ -66,13 +66,6 @@
 {{--                                                                @endforeach--}}
 {{--                                                            </select>--}}
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-group" >
-                                                                <label for="name">اجمالي المبلغ المطلوب  :</label>
-                                                                <input type="text" value="{{$totalResult}}" class="form-control" name="totalPrice" id="totalPrice " disabled>
-
-                                                            </div>
-                                                        </div>
                                                         <div class='col-md-3'>
                                                             <label for="اسم الدورة">  حالة الفاتورة </label>
                                                             <select class="form-select form-control"   wire:model="search_array.status" aria-label="Default select example" name="status"
@@ -82,6 +75,14 @@
                                                                 <option  value="unrecived"> غير مسددة </option>
                                                             </select>
                                                         </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group" >
+                                                                <label for="name">اجمالي المبلغ المطلوب  :</label>
+                                                                <input type="text" value="{{$totalResult}}" class="form-control" name="totalPrice" id="totalPrice " disabled>
+
+                                                            </div>
+                                                        </div>
+
                                                         <div class="col-md-3">
                                                             <div class="form-group" >
                                                                 <label for="name">التاريخ من  :</label>
@@ -208,7 +209,7 @@
 
                                                     <td>{{$bill->customers?$bill->customers->name:''}}</td>
                                                     <td>{{$bill->status == "recived"?'مسددة':'غير مسددة'}}</td>
-                                                    <td>{{(new \DateTime($bill->created_at))->format('  A h:i   Y/m/d ') }}</td>
+                                                    <td>{{$bill->invoice_date }}</td>
                                                      <td>{{ (int) ($bill->result ) }}</td>
                                                     <td>{{$bill->coins?$bill->coins->name:''}}</td>
                                                     <td>{{$bill->users?$bill->users->name:''}}</td>
